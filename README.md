@@ -1,2 +1,2 @@
-# 1D_Life_In_Z88DK_C_For_The_Tatung_Einsten-in
-An implementation of Life in 1D in C for the Tatung Einstein, based on BASIC from Nakazoto
+# 1D Life In C for the Tatung Einstein using Z88DK
+An implementation of Life in 1D in C for the Tatung Einstein, based on BASIC from Nakazoto (thanks Nakazoto for the video and BASIC, it has reignited my retro programming enthusiasm) - see https://github.com/Nakazoto/CenturionComputer/blob/main/Software/New%20Software/1DLIFE.BAS
