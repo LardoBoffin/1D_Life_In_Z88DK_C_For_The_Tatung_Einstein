@@ -1,6 +1,6 @@
 # 1D Life In C for the Tatung Einstein using Z88DK
 
-The intention of this guide is to show the reader how to write a program in C for the Tatung Einstein.
+The intention of this guide is to show the reader how to write a build and run a simple program in C for the Tatung Einstein.
 
 There are two main options for this:
 
