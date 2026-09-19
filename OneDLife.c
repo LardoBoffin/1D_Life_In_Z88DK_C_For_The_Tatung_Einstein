@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 
 int X [40], Y[40];
 int M = 38;
@@ -9,10 +8,21 @@ void CalculateLife(int);
 
 int main() {
 	
-	int r, i, t;					// random number, loop counters	
-	printf("\016");					// clear the screen
-	srand((unsigned int) 9999);  	// seed with current time
+	int r, i, t;					// random number, loop counters		
+	unsigned int user_seed = 0;
+
+    printf("--- Press Any Key To Start ---\n");
+
+    // Loop and rapidly increment seed until a key is pressed
+    while (getk() == 0) {
+        user_seed++;
+    }
+
+    // Seed the generator with the final unique value
+    srand(user_seed); 
 	
+	printf("\016");					// clear the screen
+
 	while(1){
 		
 		for (i = M; i > -1; i--) {
@@ -33,8 +43,6 @@ int main() {
 				if (X[i]==0){printf(" ");}else{printf("*");}
 			}
 		}
-
-return 0;		
 	}
     return 0;
 }
