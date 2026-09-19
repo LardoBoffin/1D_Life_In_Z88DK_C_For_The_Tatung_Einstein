@@ -5,22 +5,7 @@
 int X [40], Y[40];
 int M = 38;
 
-void CalculateLife(int i)
-{
-	int c, z;
-	c = 0;
-  
-	for (z = i + 2;z > i-3;z--) {
-		if (z==i || X[z]==0){}else{c++;}		
-	}
-	Y[i]=0;
-	if (X[i] == 1){		
-		if (c == 2 || c == 4){Y[i]=1;}		
-	}
-	else {
-		if (c == 2 || c == 3){Y[i]=1;}
-	}
-}
+void CalculateLife(int);
 
 int main() {
 	
@@ -37,7 +22,7 @@ int main() {
 		printf("\n");
 		
 		//24 iterations of lines of life
-		for (t= 24; t> -1; t--) {
+		for (t= 20; t> -1; t--) {
 			//for each creature see what is around it
 			for (i = M - 2 ; i > -1; i--) {
 				CalculateLife(i);
@@ -47,9 +32,26 @@ int main() {
 				X[i]=Y[i];
 				if (X[i]==0){printf(" ");}else{printf("*");}
 			}
-		}	
+		}
+
+return 0;		
 	}
     return 0;
 }
 
-
+void CalculateLife(int i)
+{
+	int c, z;
+	c = 0;
+  
+	for (z = i + 2;z > i-3;z--) {
+		if (z!=i && X[z]==1){c++;}	
+	}
+	Y[i]=0;
+	if (X[i] == 1){		
+		if (c == 2 || c == 4){Y[i]=1;}		
+	}
+	else {
+		if (c == 2 || c == 3){Y[i]=1;}
+	}
+}
