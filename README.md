@@ -13,9 +13,9 @@ To run this program you will need to:-
 6) Put the BOOT.DSK in the same folder.
 7) Put the Einstein Disc Tools in a folder, either the project folder or a separate folder. einstein_dsk_v1.6.py or higher is required.
 8) Edit the build.bat file to point to your folder structure. By default it assumes:
-   The disc tools are in "C:\Einstein\DiscTools"
-   The project folder is in "C:\z88dk\examples\tatung\OneD"
-   MAME is in "D:\ES-DE\Emulators\MAME"
+   a) The disc tools are in "C:\Einstein\DiscTools"
+   b) The project folder is in "C:\z88dk\examples\tatung\OneD"
+   c) MAME is in "D:\ES-DE\Emulators\MAME"
 9) Run build.bat by double clicking it in file explorer.
 
 This will build the program, create and update the appropriate discs and then launch MAME windowed, rather than full screen.
