@@ -1,5 +1,19 @@
 # 1D Life In C for the Tatung Einstein using Z88DK
-An implementation of Life in 1D in C for the Tatung Einstein, based on BASIC from Nakazoto (thanks to Nakazoto for the video and BASIC) - see https://github.com/Nakazoto/CenturionComputer/blob/main/Software/New%20Software/1DLIFE.BAS
+
+The intention of this guide is to show the reader how to write a program in C for the Tatung Einstein.
+
+There are two main options for this:
+
+1) Using something like Hisoft C on the Tatung Einstein itself
+2) Using a cross compiler from another computer such as a Windows PC
+
+Option 1 requires an extremely enthusiastic developer as there will be no modern quality of life helpers such as a mouse, fast compiling or software control such as GitHub. And in the case of my Einstein, a slightly dodgy keyboard due to some of the key-switches I have not got round to changing yet.
+
+Option 2 requires something like Z88DK, Python and MAME as an emulator and has all of the modern quality of life features including lightning fast compilation.
+
+This document will go through how to build a simple C program using option 2. Rather than stick with the traditional 'Hello, World!' program a slightly more complex program will be used. This is an implementation of Life in 1D, based on BASIC from Nakazoto (thanks to Nakazoto for the video and BASIC) - see https://github.com/Nakazoto/CenturionComputer/blob/main/Software/New%20Software/1DLIFE.BAS for the original source. Note that is not a 'how to program C guide'! That is way beyond the scope of this (and my abilities).
+
+At a very high level this is a simple 1 dimensional implementation of the Life program. It prints a randomly generated line of either nothing or * which signifies a single celled organism. It steps through each cell in the current row and works out how many other organisms are around this one and if there are too many it dies due to over competition otherwise it may survive or even produce new life. This updated information is then shown on the next line and then the process is repeated around 20 times at which point it starts again which a completely new random line. Apparently the algorithm in use hits a dead end at around 20 iterations hence resetting. 
 
 This is designed to run under Windows.
 
@@ -22,11 +36,13 @@ To run this program you will need to:-
    
 10) Run build.bat by double clicking it in file explorer.
 
-This will build the program, create and update the appropriate discs and then launch MAME windowed, rather than full screen.
+This will build the program, create and update the appropriate discs and then launch MAME windowed, rather than full screen. The program will autoboot and start.
 
 Windowed mode has been chosen so that it is easier to build / test / close MAME, amend and try again.
 
+Once started it will say 'Press any Key to Start' - this is a deliberate ploy to allow a fully random seeding of the random number generator. Using something like time won't work as the program will launch at the same time each time it is run and hence will always produce the same numbers and pattern each time. Relying on when the user presses the key produces a pretty random sequence.
 
+# Build.BAT
 The core of this process is the build.bat file. This contains the following lines:
 
 1) zcc +cpm -lm -leinstein -o LIFE.COM OneDLife.c  || goto :error
