@@ -32,7 +32,7 @@ To run this program you will need to:-
    
    b) The project folder is in "C:\z88dk\examples\tatung\OneD"
    
-   c) MAME is in "D:\ES-DE\Emulators\MAME"
+   c) MAME is in "C:\ES-DE\Emulators\MAME"
    
 10) Run build.bat by double clicking it in file explorer.
 
@@ -45,23 +45,33 @@ Once started it will say 'Press any Key to Start' - this is a deliberate ploy to
 # Build.BAT
 The core of this process is the build.bat file. This contains the following lines:
 
-1) zcc +cpm -lm -leinstein -o LIFE.COM OneDLife.c  || goto :error
+1) SET "SOURCE_DIR=C:\z88dk\examples\tatung\OneD"
+
+SET "MAME=C:\MAME\ES-DE\Emulators\MAME"
+
+SET "ROMS=C:\MAME\ES-DE\Roms\einstein\EinTK02"
+
+SET "DISCTOOLS=C:\Einstein\DiscTools"
+
+These lines set the paths for the various functions. SOURCE_DIR is where the project file lives. MAME is the path to MAME.exe. ROMS is the the path to system ROMs. DISCTOOLS is the path to the TatungBytes disc tools. 
+
+2) zcc +cpm -lm -leinstein -o LIFE.COM OneDLife.c  || goto :error
 
 This line uses Z88Dk to compile the file OneDLife.c into the program file LIFE.COM and places it in the project folder. If it fails to compile it jumps to the error handling section, reports the error and stop.
 
-2) C:\Einstein\DiscTools\einstein_dsk_v1.6.py create LIFE.DSK || goto :error
+3) %DISCTOOLS%\einstein_dsk_v1.6.py create LIFE.DSK || goto :error
 
 This line creates a blank disc called LIFE.DSK. If an error is reported this jumps to the error handler.  
 
-3) C:\Einstein\DiscTools\einstein_dsk_v1.6.py add LIFE.DSK LIFE.COM || goto :error
+4) %DISCTOOLS%\einstein_dsk_v1.6.py add LIFE.DSK LIFE.COM || goto :error
 
 This line adds the program LIFE.COM to the freshly created disc LIFE.DSK. The process of creating the disc and adding the program can be done in one step but is separated out to make it easier to add multiple files, e.g. if the program relies on separate data files to run.
 
-4) C:\Einstein\DiscTools\einstein_dsk_v1.6.py add boot.DSK --autorun "1:LIFE" || goto :error
+4) %DISCTOOLS%\einstein_dsk_v1.6.py add boot.DSK --autorun "1:LIFE" || goto :error
 
 This line makes the boot disc for Drive 0 autoboot the program LIFE in Drive 1 to save typing this every time.
 
-5) D:\ES-DE\Emulators\MAME\mame.exe einstein -uimodekey 7_PAD -inipath "D:\ES-DE\Emulators\MAME" -cfg_directory "D:\ES-DE\Emulators\MAME\cfg\einstein\EinTK02\btp" -nowindow -skip_gameinfo -rompath "D:\ES-DE\Roms\einstein\EinTK02" -flop2 "C:\z88dk\examples\tatung\OneD\LIFE.dsk" -flop1 "C:\z88dk\examples\tatung\OneD\boot.dsk" -pipe tk02 -window  || goto :error
+5) %MAME%\mame.exe einstein -uimodekey 7_PAD -inipath "%MAME%" -cfg_directory "%MAME%\cfg\einstein\EinTK02\btp" -nowindow -skip_gameinfo -rompath "%ROMS%" -flop2 "%SOURCE_DIR%\LIFE.dsk" -flop1 "%SOURCE_DIR%\boot.dsk" -pipe tk02 -window  || goto :error
 
 This rather complex line boots MAME and tells it which discs to use. It was derived from existing example .bat files present in the MAME setup from TatungBytes (see https://www.tatungbytes.co.uk/guides/setting-up-mame-to-emulate-the-tatung-einstein). 
 
@@ -69,23 +79,23 @@ Each section of this line with a path will need to be amended to fit your folder
 
 This breaks down as:
 
-a) D:\ES-DE\Emulators\MAME\mame.exe einstein -uimodekey 7_PAD -inipath "D:\ES-DE\Emulators\MAME" 
+a) %MAME%\mame.exe einstein -uimodekey 7_PAD -inipath "%MAME%"
 
 Start MAME and tell it where the inipath is.
 
-b) -cfg_directory "D:\ES-DE\Emulators\MAME\cfg\einstein\EinTK02\btp" -nowindow -skip_gameinfo 
+b) -cfg_directory "%MAME%\cfg\einstein\EinTK02\btp" -nowindow -skip_gameinfo
 
 Define configuration directories.
 
-c) -rompath "D:\ES-DE\Roms\einstein\EinTK02" 
+c) -rompath "%ROMS%"
 
 Tell it where the Roms are.
 
-d) -flop2 "C:\z88dk\examples\tatung\OneD\LIFE.dsk" 
+d) -flop2 "%SOURCE_DIR%\LIFE.dsk" 
 
 This is the program file built by the compiler and subsequent disc programs.
 
-e) -flop1 "C:\z88dk\examples\tatung\OneD\boot.dsk" 
+e) -flop1 "%SOURCE_DIR%\boot.dsk" 
 
 This is the boot disc that is required to autoboot LIFE.COM. 
 
