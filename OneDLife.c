@@ -42,6 +42,7 @@ int main() {
 				X[i]=Y[i];
 				if (X[i]==0){printf(" ");}else{printf("*");}
 			}
+			printf("\n");
 		}
 	}
     return 0;
